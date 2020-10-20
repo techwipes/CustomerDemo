@@ -57,5 +57,17 @@ public class CustomerRestControllerV1 {
         return new ResponseEntity<>(customer, headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Customer> deleteCustomer(Long id) {
+        Customer customer = this.customerService.getById(id);
+
+        if (customer == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        this.customerService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 }

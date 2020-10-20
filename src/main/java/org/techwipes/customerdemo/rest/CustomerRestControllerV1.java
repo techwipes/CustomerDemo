@@ -12,6 +12,7 @@ import org.techwipes.customerdemo.model.Customer;
 import org.techwipes.customerdemo.service.CustomerService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/customers/")
@@ -67,6 +68,18 @@ public class CustomerRestControllerV1 {
         this.customerService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Customer>> getAllCustomers() {
+        List<Customer> customers = this.customerService.getAll();
+
+        if (customers.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+
     }
 
 

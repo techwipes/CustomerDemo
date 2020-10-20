@@ -59,7 +59,7 @@ public class CustomerRestControllerV1 {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Customer> deleteCustomer(Long id) {
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") Long id) {
         Customer customer = this.customerService.getById(id);
 
         if (customer == null) {

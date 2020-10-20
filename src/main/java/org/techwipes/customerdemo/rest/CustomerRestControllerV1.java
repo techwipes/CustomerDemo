@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.techwipes.customerdemo.model.Customer;
 import org.techwipes.customerdemo.service.CustomerService;
 
@@ -42,5 +43,17 @@ public class CustomerRestControllerV1 {
         }
         this.customerService.save((customer));
         return new ResponseEntity<>(customer, headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Customer> updateCustomer(Customer customer, UriComponentsBuilder builder) {
+        HttpHeaders headers = new HttpHeaders();
+
+        if (customer == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        this.customerService.save((customer));
+
+        return new ResponseEntity<>(customer, headers, HttpStatus.OK);
     }
 }
